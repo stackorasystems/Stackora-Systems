@@ -1891,6 +1891,27 @@ main:focus {
   text-decoration: underline;
 }
 
+.form-status-error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* Spam honeypot: off-screen and untabbable, but still posted. */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn:disabled {
+  opacity: 0.72;
+  cursor: progress;
+}
+
 /* =========================================================
    Footer
    ========================================================= */

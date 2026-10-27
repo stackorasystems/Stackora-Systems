@@ -1,5 +1,18 @@
 import { useState } from 'react'
-import { CheckCircle2, Mail, MessageCircle, Phone, Send } from 'lucide-react'
+import {
+  AlertCircle,
+  CheckCircle2,
+  Mail,
+  MessageCircle,
+  Phone,
+  Send,
+} from 'lucide-react'
+
+// FormSubmit forwards every enquiry to the official company inbox. The /ajax/
+// endpoint takes a JSON body and answers with JSON, so the form can report the
+// result without reloading the page.
+// https://formsubmit.co/ajax-documentation
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/stackorasystems@gmail.com'
 
 const projectTypes = [
   'UI/UX design',
@@ -47,17 +60,21 @@ function validateForm(values) {
 export default function Contact() {
   const [form, setForm] = useState(emptyForm)
   const [errors, setErrors] = useState({})
-  const [showMailtoNotice, setShowMailtoNotice] = useState(false)
+  // idle | sending | success | error
+  const [status, setStatus] = useState('idle')
+  const [sendError, setSendError] = useState('')
+  const [honeypot, setHoneypot] = useState('')
 
   function handleChange(event) {
     const { name, value } = event.target
 
     setForm((current) => ({ ...current, [name]: value }))
     setErrors((current) => ({ ...current, [name]: undefined }))
-    setShowMailtoNotice(false)
+    setStatus('idle')
+    setSendError('')
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
 
     const nextErrors = validateForm(form)
@@ -65,28 +82,55 @@ export default function Contact() {
 
     const firstError = Object.keys(nextErrors)[0]
     if (firstError) {
-      setShowMailtoNotice(false)
+      setStatus('idle')
+      setSendError('')
       document.getElementById(firstError)?.focus()
       return
     }
 
-    const subject = `Project enquiry — ${form.projectType}`
-    const body = [
-      `Name: ${form.name.trim()}`,
-      `Business email: ${form.email.trim()}`,
-      `Project type: ${form.projectType}`,
-      '',
-      'Project details:',
-      form.message.trim(),
-    ].join('\n')
+    setStatus('sending')
+    setSendError('')
 
-    // There is no backend on this site. Hand the enquiry to the visitor's
-    // email client so the message is only sent when they choose to send it.
-    window.location.href = `mailto:stackorasystems@gmail.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `Project enquiry — ${form.projectType}`,
+          _honey: honeypot,
+          Name: form.name.trim(),
+          Email: form.email.trim(),
+          'Project type': form.projectType,
+          Message: form.message.trim(),
+        }),
+      })
 
-    setShowMailtoNotice(true)
+      const result = await response.json().catch(() => null)
+
+      // FormSubmit answers with success as a string, so compare loosely and
+      // still treat a non-2xx status as a failure.
+      const rejected =
+        !response.ok ||
+        (result &&
+          ['false', '0'].includes(String(result.success).toLowerCase()))
+
+      if (rejected) {
+        throw new Error(
+          result?.message || `The form service replied ${response.status}.`,
+        )
+      }
+
+      setStatus('success')
+      setForm(emptyForm)
+      setErrors({})
+      setHoneypot('')
+    } catch (error) {
+      setStatus('error')
+      setSendError(error?.message || 'The request did not go through.')
+    }
   }
 
   return (
@@ -241,18 +285,53 @@ export default function Contact() {
             )}
           </div>
 
-          <button className="btn btn-primary form-submit" type="submit">
-            Send Enquiry
-            <Send size={16} aria-hidden="true" />
+          {/* Spam honeypot — invisible to people, tempting for bots. */}
+          <input
+            className="honeypot"
+            type="text"
+            name="_honey"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            value={honeypot}
+            onChange={(event) => setHoneypot(event.target.value)}
+          />
+
+          <button
+            className="btn btn-primary form-submit"
+            type="submit"
+            disabled={status === 'sending'}
+          >
+            {status === 'sending' ? (
+              'Sending…'
+            ) : (
+              <>
+                Send Enquiry
+                <Send size={16} aria-hidden="true" />
+              </>
+            )}
           </button>
 
-          {showMailtoNotice && (
+          {status === 'success' && (
             <div className="form-status" role="status">
               <CheckCircle2 size={20} aria-hidden="true" />
               <p>
-                <strong>Your email app should open with this message.</strong>{' '}
-                This website has no backend, so nothing is sent automatically.
-                Review the email and press send to reach{' '}
+                <strong>Your enquiry has been sent.</strong> It went straight
+                to{' '}
+                <a href="mailto:stackorasystems@gmail.com">
+                  stackorasystems@gmail.com
+                </a>
+                . We will reply to the address you gave us.
+              </p>
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="form-status form-status-error" role="alert">
+              <AlertCircle size={20} aria-hidden="true" />
+              <p>
+                <strong>We could not send that.</strong> {sendError} You can
+                still reach us directly at{' '}
                 <a href="mailto:stackorasystems@gmail.com">
                   stackorasystems@gmail.com
                 </a>
@@ -262,8 +341,8 @@ export default function Contact() {
           )}
 
           <p className="form-help">
-            This form prepares an email in your own email app. No data is sent
-            to a server, and submissions are not stored by this website.
+            Enquiries are delivered to stackorasystems@gmail.com through a form
+            service. Nothing is stored on this website.
           </p>
         </form>
       </div>

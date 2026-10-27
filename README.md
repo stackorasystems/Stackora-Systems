@@ -104,25 +104,38 @@ JavaScript, HTML/CSS and templated Node.js work.
 ## Contact form
 
 The form validates name, business email, project type and message in the
-browser. There is **no backend or email service wired up**, so the site does not
-pretend to deliver messages. On a valid submission it opens a pre-filled email
-to `stackorasystems@gmail.com` in the visitor's email client and displays a notice
-explaining that nothing is sent automatically.
+browser, then POSTs the enquiry as JSON to **FormSubmit**, which forwards it to
+`stackorasystems@gmail.com`. There is no server of our own and no API key to
+hide: the endpoint is simply the mailbox address.
 
-To deliver submissions without opening an email client, choose one option:
+```js
+// src/sections/Contact.jsx
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/stackorasystems@gmail.com'
+```
 
-1. **Form service** — create a form endpoint (for example Formspree, Basin or
-   Netlify Forms), then replace the `window.location.href = mailto...` block in
-   `src/sections/Contact.jsx` with a `fetch` POST to that endpoint. Show the
-   success notice only after a successful response.
-2. **Own API** — add a serverless function (Vercel, Netlify, Cloudflare Workers
-   or similar) that validates the payload and sends mail through an email API.
-   Store its credentials as environment variables, never in the frontend.
-3. **Keep the mailto fallback** — no setup is required and the form remains
-   honest about its behaviour.
+Behaviour:
 
-If a backend is added, update the form help text and the notice in
-`src/sections/Contact.jsx` to match the real behaviour.
+- A hidden `_honey` honeypot field filters out simple bots.
+- The button reads **Sending…** and disables while the request is in flight.
+- The success notice appears only after the service accepts the submission.
+- On any failure an error notice appears with a direct
+  `mailto:stackorasystems@gmail.com` fallback, so a visitor is never stuck.
+- Nothing is stored on this website.
+
+### One-time activation
+
+The first submission makes FormSubmit send a confirmation email to
+`stackorasystems@gmail.com`. **Open that email and click the activation link**
+— until it is confirmed, submissions are held rather than delivered. Submit the
+form once on the live site to trigger it, then check Spam if it is not visible.
+
+### Switching service
+
+FormSubmit is free with no signup and no submission limit. If you later prefer
+Formspree (50/month, needs a form ID) or Web3Forms (250/month, needs an access
+key), change `FORM_ENDPOINT` and the payload in `src/sections/Contact.jsx`, then
+update the form help text and the notices in that same file so they still match
+the real behaviour.
 
 ## Deployment
 
