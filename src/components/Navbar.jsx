@@ -26,12 +26,13 @@ export default function Navbar() {
     <header className="site-header">
       <div className="container navbar">
         <a className="brand" href="#home" aria-label="Stackora Systems home">
-          <span className="brand-mark" aria-hidden="true">
-            S
-          </span>
-          <span className="brand-name">
-            Stackora <span>Systems</span>
-          </span>
+          <img
+            className="brand-logo"
+            src={`${import.meta.env.BASE_URL}logo.png`}
+            alt="Stackora Systems"
+            width="148"
+            height="41"
+          />
         </a>
 
         <nav className="nav-links" aria-label="Main navigation">

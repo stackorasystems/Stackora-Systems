@@ -32,7 +32,9 @@ npm run preview   # serve the production build locally
 
 ```text
 public/
-  favicon.svg
+  favicon.png          Gradient S mark used as the browser icon
+  logo.png             Full-colour lockup shown in the navbar
+  logo-reversed.png    Light lockup shown on the navy footer
   projects/
     ixfi.webp           Google Play screenshot (stored locally)
     zee5.webp           Google Play screenshot (stored locally)

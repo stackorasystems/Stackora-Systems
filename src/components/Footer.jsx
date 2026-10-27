@@ -23,13 +23,14 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <a className="brand brand-light" href="#home" aria-label="Stackora Systems home">
-            <span className="brand-mark" aria-hidden="true">
-              S
-            </span>
-            <span className="brand-name">
-              Stackora <span>Systems</span>
-            </span>
+          <a className="brand" href="#home" aria-label="Stackora Systems home">
+            <img
+              className="brand-logo"
+              src={`${import.meta.env.BASE_URL}logo-reversed.png`}
+              alt="Stackora Systems"
+              width="190"
+              height="53"
+            />
           </a>
           <p>
             A six-member product team building design, mobile apps, backend
