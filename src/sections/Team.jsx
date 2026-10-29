@@ -9,7 +9,7 @@ export default function Team() {
         <SectionHeading
           eyebrow="Our team"
           title="The people behind the work"
-          description="Six specialists with hands-on experience across UI/UX design, Android, iOS, Flutter, backend and cloud delivery. Contact details stay private — all enquiries go to the official Stackora Systems inbox."
+          description="Five specialists with hands-on experience across UI/UX design, Android, iOS, Flutter, backend and cloud delivery. Contact details stay private — all enquiries go to the official Stackora Systems inbox."
         />
 
         <div className="team-grid">

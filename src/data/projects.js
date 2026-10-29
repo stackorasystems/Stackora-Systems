@@ -1,4 +1,4 @@
-// Portfolio data taken from the six supplied resumes.
+// Portfolio data taken from the supplied resumes.
 // `kind` separates professional work from independent and open-source work.
 // Contributor and employer names are intentionally omitted; the portfolio
 // disclaimer explains that the work was done for the developers employers.
@@ -65,30 +65,6 @@ export const projects = [
       label: 'View on Google Play',
       url: 'https://play.google.com/store/apps/details?id=com.graymatrix.did&hl=en',
     },
-  },
-  {
-    id: 'mbark',
-    name: 'mBark — Cruise Embarkation',
-    category: 'mobile',
-    kind: 'professional',
-    type: 'Enterprise · Android',
-    description:
-      'Passenger onboarding, check-in and manifest management for cruise operations, designed to keep working when shipboard connectivity is limited or unavailable.',
-    contributions: [
-      'Engineered a Bluetooth Low Energy protocol for secure local manifest sync, ML Kit face capture and barcode scanning, and a Ktor Server one-to-many transfer system over a Wi-Fi hotspot.',
-    ],
-    technologies: [
-      'Kotlin',
-      'Jetpack Compose',
-      'Bluetooth LE',
-      'Ktor Server',
-      'ML Kit',
-      'RoomDB',
-      'Wi-Fi Direct',
-    ],
-    visual: 'phone',
-    tone: 'teal',
-    link: null,
   },
   {
     id: 'tgi-connect',

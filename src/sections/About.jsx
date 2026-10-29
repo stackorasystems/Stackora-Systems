@@ -13,9 +13,9 @@ export default function About() {
       <div className="container about-grid">
         <div>
           <span className="eyebrow">About us</span>
-          <h2>Six specialists, working as one product team.</h2>
+          <h2>Five specialists, working as one product team.</h2>
           <p>
-            Stackora Systems combines the experience of six members across
+            Stackora Systems combines the experience of five members across
             design, Android, iOS, Flutter and backend engineering. We work on
             the parts of a product that usually need separate teams: the UX,
             the mobile apps, the APIs and data behind them, and the cloud

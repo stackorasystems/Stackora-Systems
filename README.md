@@ -1,7 +1,7 @@
 # Stackora Systems — Company Portfolio Website
 
 A clean, responsive portfolio website for **Stackora Systems**, built with React,
-Vite and plain CSS. The site presents the six-member team, the services their
+Vite and plain CSS. The site presents the five-member team, the services their
 experience supports, selected projects, technologies and a contact form.
 
 ## Tech stack
@@ -55,7 +55,7 @@ src/
     Engagement.jsx
     Contact.jsx
   data/
-    team.js             Six team profiles
+    team.js             Five team profiles
     services.js         Service cards
     projects.js         Portfolio cards + filter categories
     technologies.js     Technology groups
@@ -69,9 +69,9 @@ To change content, edit the files in `src/data/`. Each array renders cards with
 
 ## Content notes and accuracy
 
-All team, project and service information is taken from the six supplied
-resumes (Ishant Sharma, Rituraj Sharma, Puneet, Savan Vaghasiya, Manoj
-Vaghasiya and Pratik Ambaliya). The site:
+All team, project and service information is taken from the supplied
+resumes (Ishant Sharma, Rituraj Sharma, Puneet, Manoj Vaghasiya and
+Pratik Ambaliya). The site:
 
 - Does **not** publish personal email addresses or phone numbers.
 - Uses only the official company contact details:

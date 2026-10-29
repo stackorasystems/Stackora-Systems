@@ -5,7 +5,7 @@ export default function Hero() {
     <section className="hero" id="home">
       <div className="container hero-inner">
         <div className="hero-copy">
-          <span className="eyebrow">Six specialists. One product team.</span>
+          <span className="eyebrow">Five specialists. One product team.</span>
           <h1>We Build Digital Solutions for Your Business.</h1>
           <p className="hero-text">
             Stackora Systems helps businesses build mobile applications, web

@@ -33,7 +33,7 @@ export default function Footer() {
             />
           </a>
           <p>
-            A six-member product team building design, mobile apps, backend
+            A five-member product team building design, mobile apps, backend
             services and the cloud integrations that keep them running.
           </p>
         </div>

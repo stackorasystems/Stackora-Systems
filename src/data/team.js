@@ -1,4 +1,4 @@
-// Team profiles built only from the six supplied resumes.
+// Team profiles built only from the supplied resumes.
 // Personal email addresses and phone numbers are deliberately omitted.
 
 export const team = [
@@ -46,29 +46,6 @@ export const team = [
       'Reusable SwiftUI components and UIKit legacy maintenance',
       'Performance tuning, debugging and memory management',
       'Full App Store lifecycle, CI/CD and TestFlight',
-    ],
-  },
-  {
-    id: 'savan',
-    name: 'Savan Vaghasiya',
-    initials: 'SV',
-    title: 'Android Developer',
-    focus: 'Real-time, offline-first & cross-platform apps',
-    experience: '5+ years',
-    skills: [
-      'Kotlin',
-      'Jetpack Compose',
-      'React Native',
-      'Ktor',
-      'RoomDB',
-      'Bluetooth & Wi-Fi Direct',
-    ],
-    intro:
-      'Delivers scalable Android apps with a focus on real-time communication, offline-first systems and enterprise integrations. Currently working on cruise operations software for Carnival Corporation.',
-    highlights: [
-      '100% Jetpack Compose crypto trading app with live market data',
-      'Offline-first architecture for low-connectivity environments',
-      'One-to-many file transfer over BLE and Wi-Fi hotspot',
     ],
   },
   {

@@ -1,4 +1,4 @@
-// Technology groups reflect tools named in the six resumes.
+// Technology groups reflect tools named in the supplied resumes.
 
 export const technologyGroups = [
   {
