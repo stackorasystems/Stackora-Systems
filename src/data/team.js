@@ -96,7 +96,7 @@ export const team = [
   },
   {
     id: 'pratik',
-    name: 'Pratik Ambaliya',
+    name: 'Pratik A',
     initials: 'PA',
     title: 'UI/UX Designer',
     focus: 'User research, design systems & prototyping',
